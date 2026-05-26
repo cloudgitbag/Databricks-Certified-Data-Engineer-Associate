@@ -108,4 +108,15 @@ AS
 
 -- COMMAND ----------
 
+-- MAGIC %python
+-- MAGIC files = dbutils.fs.ls('dbfs:/pipelines/ceadbba1-340d-4283-8e15-99981087c464')
+-- MAGIC display(files)
 
+-- COMMAND ----------
+
+-- MAGIC %python
+-- MAGIC display(dbutils.fs.ls('dbfs:/pipelines/ceadbba1-340d-4283-8e15-99981087c464/system/events'))
+
+-- COMMAND ----------
+
+select * from delta.`dbfs:/pipelines/ceadbba1-340d-4283-8e15-99981087c464/system/events`

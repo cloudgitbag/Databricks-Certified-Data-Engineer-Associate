@@ -44,6 +44,12 @@ SELECT count(*) FROM json.`${dataset.bookstore}/customers-json`
 
 -- COMMAND ----------
 
+SELECT *,
+_metadata.file_path AS source_file
+FROM json.`${dataset.bookstore}/customers-json`;
+
+-- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## Querying text Format
 
@@ -169,3 +175,12 @@ SELECT * FROM books
 -- COMMAND ----------
 
 DESCRIBE EXTENDED books
+
+-- COMMAND ----------
+
+-- MAGIC %python 
+-- MAGIC df = spark.read.format("csv")\
+-- MAGIC     .option("header", "true")\
+-- MAGIC     .option("delimiter", ";")\
+-- MAGIC     .load(f"{dataset_bookstore}/books-csv")
+-- MAGIC df.display()

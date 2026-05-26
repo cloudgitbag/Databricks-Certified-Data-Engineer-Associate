@@ -68,6 +68,7 @@ SELECT * FROM customers_final
 
 SELECT order_id, customer_id, books
 FROM orders
+Where order_id='000000000004105'
 
 -- COMMAND ----------
 
@@ -78,6 +79,7 @@ FROM orders
 
 SELECT order_id, customer_id, explode(books) AS book 
 FROM orders
+Where order_id='000000000004105'
 
 -- COMMAND ----------
 
@@ -90,6 +92,7 @@ SELECT customer_id,
   collect_set(order_id) AS orders_set,
   collect_set(books.book_id) AS books_set
 FROM orders
+--Where order_id='000000000004105'
 GROUP BY customer_id
 
 -- COMMAND ----------
@@ -101,9 +104,19 @@ GROUP BY customer_id
 -- COMMAND ----------
 
 SELECT customer_id,
+  collect_set(order_id) AS orders_set,
+  collect_set(books.book_id) AS books_set
+FROM orders
+Where customer_id ='C00004'
+GROUP BY customer_id
+
+-- COMMAND ----------
+
+SELECT customer_id,
   collect_set(books.book_id) As before_flatten,
   array_distinct(flatten(collect_set(books.book_id))) AS after_flatten
 FROM orders
+Where customer_id ='C00004'
 GROUP BY customer_id
 
 -- COMMAND ----------

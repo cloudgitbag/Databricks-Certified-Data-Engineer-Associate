@@ -11,6 +11,10 @@
 
 # COMMAND ----------
 
+display(dbutils.fs.ls("dbfs:/mnt/demo-datasets/bookstore"))
+
+# COMMAND ----------
+
 # MAGIC %md
 # MAGIC
 # MAGIC ## Reading Stream

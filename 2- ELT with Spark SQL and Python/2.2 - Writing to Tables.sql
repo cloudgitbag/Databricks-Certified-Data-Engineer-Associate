@@ -11,6 +11,12 @@
 
 -- COMMAND ----------
 
+-- MAGIC %python
+-- MAGIC files = dbutils.fs.ls(f"{dataset_bookstore}/orders")
+-- MAGIC display(files)
+
+-- COMMAND ----------
+
 CREATE TABLE orders AS
 SELECT * FROM parquet.`${dataset.bookstore}/orders`
 

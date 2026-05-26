@@ -25,6 +25,8 @@ AS SELECT * FROM cloud_files("${datasets.path}/books-cdc", "json")
 
 -- COMMAND ----------
 
+-- This is our target table into which the changes from the CDC feed will be applied.
+
 CREATE OR REFRESH STREAMING LIVE TABLE books_silver;
 
 APPLY CHANGES INTO LIVE.books_silver
@@ -42,6 +44,9 @@ APPLY CHANGES INTO LIVE.books_silver
 -- MAGIC ## Gold Layer Tables
 
 -- COMMAND ----------
+
+-- Notice here that this is not a streaming table.
+-- Since data is being updated and deleted from our book_silver table, it is no more valid to be a streaming source for this new table. Remember streaming sources must be append only tables.
 
 CREATE LIVE TABLE author_counts_state
   COMMENT "Number of books per author"

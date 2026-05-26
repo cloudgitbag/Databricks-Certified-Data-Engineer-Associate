@@ -1,28 +1,43 @@
 # Databricks notebook source
-files = dbutils.fs.ls("dbfs:/mnt/demo/dlt/demo_bookstore")
+# %fs ls /
+
+# COMMAND ----------
+
+Storagelocation = "dbfs:/pipelines/ceadbba1-340d-4283-8e15-99981087c464"
+
+# COMMAND ----------
+
+files = dbutils.fs.ls(Storagelocation)
 display(files)
 
 # COMMAND ----------
 
-files = dbutils.fs.ls("dbfs:/mnt/demo/dlt/demo_bookstore/system/events")
+files = dbutils.fs.ls(f"{Storagelocation}/system/events")
 display(files)
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC SELECT * FROM delta.`dbfs:/mnt/demo/dlt/demo_bookstore/system/events`
+# MAGIC SELECT * FROM delta.`dbfs:/pipelines/ceadbba1-340d-4283-8e15-99981087c464/system/events`
 
 # COMMAND ----------
 
-files = dbutils.fs.ls("dbfs:/mnt/demo/dlt/demo_bookstore/tables")
+# %sql
+# Describe extended hive_metastore.default.cn_daily_customer_books
+
+# COMMAND ----------
+
+#dbfs:/pipelines/ceadbba1-340d-4283-8e15-99981087c464/schemas/default/tables/cn_daily_customer_books
+
+files = dbutils.fs.ls(f"{Storagelocation}/schemas/default/tables")
 display(files)
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC SELECT * FROM hive_metastore.demo_bookstore_dlt_db.cn_daily_customer_books
+# MAGIC SELECT * FROM hive_metastore.default.cn_daily_customer_books
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC SELECT * FROM hive_metastore.demo_bookstore_dlt_db.fr_daily_customer_books
+# MAGIC SELECT * FROM hive_metastore.default.fr_daily_customer_books

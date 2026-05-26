@@ -28,6 +28,9 @@ display(files)
 
 # COMMAND ----------
 
+# So this query will be continuously active and as soon as the new data arrives in our data source, it
+# will be processed and loaded into our target table.
+
 (spark.readStream
         .format("cloudFiles")
         .option("cloudFiles.format", "parquet")
